@@ -1,22 +1,11 @@
-import { RecursiveComponent } from "./components/recursive";
-
-const myNestedObject = {
-    key1: "value",
-    key2: {
-        innerKey1: "innerValue1",
-        innerKey2: {
-            innerInnerKey1: "innerInnerKey1" ,
-            innerInnerKey2: "innerInnerKey2" ,
-        }
-    },
-    key3: "value3"
-}
+import { GreenSmallButton, RedButton } from "./components/composition";
 
 function App() {
 
   return (
    <>
-       <RecursiveComponent data={myNestedObject} />
+       <RedButton text={"I'm a red button"} />
+       <GreenSmallButton text={"I'm a small and green button"} />
    </>
   );
 }
