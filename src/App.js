@@ -1,11 +1,11 @@
-import { GreenSmallButton, RedButton } from "./components/composition";
+import { SmallRedButton, RedButton } from "./components/partial";
 
 function App() {
 
   return (
    <>
        <RedButton text={"I'm a red button"} />
-       <GreenSmallButton text={"I'm a small and green button"} />
+       <SmallRedButton text={"I'm a small and green button"} />
    </>
   );
 }
