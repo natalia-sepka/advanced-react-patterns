@@ -1,10 +1,12 @@
-import { UserInfoForm } from "./components/user-form";
+import { UserInfo } from "./components/user-info";
+import { BookInfo } from "./components/book-info";
 
 function App() {
 
   return (
    <>
-       <UserInfoForm />
+       <UserInfo userId={"1"} />
+       <BookInfo bookId="2" />
    </>
   );
 }

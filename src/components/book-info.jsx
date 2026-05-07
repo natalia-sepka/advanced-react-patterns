@@ -1,4 +1,8 @@
-export const BookInfo = ({ book }) => {
+import { useResource } from "../hooks/resource.hook";
+import { BASE_URL } from "../config/config";
+
+export const BookInfo = ({ bookId }) => {
+    const book = useResource(`${BASE_URL}books/${bookId}`)
     const { name, price, title, pages } = book || {};
 
     return book ? (

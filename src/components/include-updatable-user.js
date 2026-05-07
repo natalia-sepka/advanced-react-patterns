@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { BASE_URL } from "../config/config";
 
 export const includeUpdatableUser = (Component, userId) => {
     return props => {
@@ -8,7 +9,7 @@ export const includeUpdatableUser = (Component, userId) => {
 
         useEffect(() => {
             (async () => {
-                const response = await axios.get(`http://localhost:9090/users/${userId}`);
+                const response = await axios.get(`${BASE_URL}users/${userId}`);
                 setInitialUser(response.data);
                 setUser(response.data);
             })()
@@ -19,7 +20,7 @@ export const includeUpdatableUser = (Component, userId) => {
         };
 
         const onPostUser = async () => {
-            const response = await axios.post(`http://localhost:9090/users/${userId}`, {
+            const response = await axios.post(`${BASE_URL}users/${userId}`, {
                 user
             });
             setInitialUser(response.data);
