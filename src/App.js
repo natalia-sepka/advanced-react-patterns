@@ -1,17 +1,22 @@
 import mitt from "mitt";
-import { Child } from "./components/child";
-import { ErrorBoundary } from "./components/error-boundary";
+import { useState } from "react";
 
 export const emitter = mitt();
 
 function App() {
+    const [changeShirts, setChangeShirts] = useState(false);
   return (
-    <>
-        <h1>Parent Component</h1>
-        <ErrorBoundary fallback={<h1>Error at Child level</h1>}>
-            <Child />
-        </ErrorBoundary>
-    </>
+    <div>
+        {changeShirts ? (
+            <span>Shirts counts: </span>
+        ) : (
+            <span>Shoes counts: </span>
+        )}
+        <br />
+        <input type="number" key={changeShirts ? "shorts" : "shoes"}/>
+        <br />
+        <button onClick={() => setChangeShirts((s) => !s)}>Switch</button>
+    </div>
   );
 }
 
