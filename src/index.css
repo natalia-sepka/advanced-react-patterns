@@ -22,3 +22,7 @@ code {
   padding: 10px;
   cursor: pointer;
 }
+.tooltip {
+  position: absolute;
+  border: 2px solid black;
+}

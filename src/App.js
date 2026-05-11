@@ -1,22 +1,33 @@
 import mitt from "mitt";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState} from "react";
 
 export const emitter = mitt();
 
 function App() {
-    const [changeShirts, setChangeShirts] = useState(false);
+    const [show, setShow] = useState(false);
+    const [top, setTop] = useState(0);
+    const buttonRef= useRef(null);
+
+    useLayoutEffect(() => {
+        if (buttonRef.current === null || !show) return setTop(0);
+        const { bottom } = buttonRef.current.getBoundingClientRect();
+        setTop(bottom + 30)
+    }, [show]);
+
   return (
-    <div>
-        {changeShirts ? (
-            <span>Shirts counts: </span>
-        ) : (
-            <span>Shoes counts: </span>
+    <>
+        <button ref={buttonRef} onClick={() => setShow((s) => !s)}>Show</button>
+        <br />
+        {show && (
+            <div className="tooltip"
+                style = {{
+                    top: `${top}px`
+                }}
+            >
+                Some text...
+            </div>
         )}
-        <br />
-        <input type="number" key={changeShirts ? "shorts" : "shoes"}/>
-        <br />
-        <button onClick={() => setChangeShirts((s) => !s)}>Switch</button>
-    </div>
+    </>
   );
 }
 
