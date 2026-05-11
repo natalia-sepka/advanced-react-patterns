@@ -1,15 +1,21 @@
 import mitt from "mitt";
-import { Form } from "./components/form";
+import { useCallback, useState, useRef } from "react";
 
 export const emitter = mitt();
 
 function App() {
+    const [showInput, setShowInput] = useState(false);
+    const realInputRef = useRef();
+    const inputRef = useCallback((input) => {
+        realInputRef.current = input;
+        if (input === null) return;
+        input.focus()
+    }, []);
 
   return (
     <>
-        <Form />
-        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</p>
-        <Form />
+        <button onClick={() => setShowInput((s) => !s)}>Switch</button>
+        {showInput && <input type="text" ref={inputRef} />}
     </>
   );
 }
