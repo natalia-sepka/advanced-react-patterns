@@ -1,21 +1,17 @@
 import mitt from "mitt";
-import { useCallback, useState, useRef } from "react";
+import { useDeferredValue, useState } from "react";
+import { HeavyComponent } from "./components/heavy-component";
 
 export const emitter = mitt();
 
 function App() {
-    const [showInput, setShowInput] = useState(false);
-    const realInputRef = useRef();
-    const inputRef = useCallback((input) => {
-        realInputRef.current = input;
-        if (input === null) return;
-        input.focus()
-    }, []);
+    const [keyword, setKeyword] = useState("");
+    const deferredKeyword = useDeferredValue(keyword);
 
   return (
     <>
-        <button onClick={() => setShowInput((s) => !s)}>Switch</button>
-        {showInput && <input type="text" ref={inputRef} />}
+        <input onChange={(e) => setKeyword(e.target.value)} />
+        <HeavyComponent keyword={deferredKeyword} />
     </>
   );
 }
