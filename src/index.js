@@ -1,12 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import React, { lazy } from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Nav from "./components/nav";
+import { mainRoute } from "./components/main";
+import { booksRoute } from "./components/books";
+import delay from "./util/delay";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const Club = lazy(() => delay(import("./components/club"), 1000));
+
+const router = createBrowserRouter([
+  {
+    element: <Nav />,
+    children: [
+      { index: true, ...mainRoute },
+      { path: "/books", ...booksRoute },
+      { path: "/club", element: <Club /> },
+    ],
+  },
+]);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-      <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
-
