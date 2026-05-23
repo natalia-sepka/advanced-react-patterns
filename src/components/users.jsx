@@ -2,20 +2,28 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { fetchUser } from "../api/userApi";
 import { withAsync } from "../helpers/with-async";
-
-const ApiStatus = "IDLE" | "PENDING" | "SUCCESS" | "ERROR";
+import { ApiStatus } from "../constants/api-status";
+import { useApiStatus } from "../api/hooks/useApiStatus";
 
 const useFetchUsers = () => {
   const [users, setUsers] = useState([]);
-  const [fetchUserStatus, setFetchUserStatus] = useState("IDLE");
+  const {
+    status: fetchUserStatus,
+    setStatus: setFetchUserStatus,
+    isIdle: isFetchUserStatusIdle,
+    isPending: isFetchUserStatusPending,
+    isError: isFetchUserStatusError,
+    isSuccess: isFetchUserStatusSuccess,
+  } = useApiStatus(ApiStatus.IDLE);
+
   const initFetchUsers = async () => {
-    setFetchUserStatus("PENDING");
+    setFetchUserStatus(ApiStatus.PENDING);
     const { response, error } = await withAsync(() => fetchUser());
 
     if (error) {
-      setFetchUserStatus("ERROR");
+      setFetchUserStatus(ApiStatus.ERROR);
     } else if (response) {
-      setFetchUserStatus("SUCCESS");
+      setFetchUserStatus(ApiStatus.SUCCESS);
       setUsers(response);
     }
 
@@ -23,7 +31,10 @@ const useFetchUsers = () => {
   return {
     users,
     initFetchUsers,
-    fetchUserStatus
+    isFetchUserStatusIdle,
+    isFetchUserStatusPending,
+    isFetchUserStatusError,
+    isFetchUserStatusSuccess
   };
 };
 
@@ -60,7 +71,7 @@ const FetchButton = styled.button`
 `;
 
 function Users() {
-  const { users, fetchUserStatus, initFetchUsers } = useFetchUsers();
+  const { users, initFetchUsers, isFetchUserStatusPending } = useFetchUsers();
 
   useEffect(() => {
     initFetchUsers();
@@ -68,7 +79,7 @@ function Users() {
 
   return (
     <Container>
-      <FetchButton onClick={initFetchUsers}>{fetchUserStatus === "PENDING" ? "Loading..." : "Fetch Users"}</FetchButton>
+      <FetchButton onClick={initFetchUsers}>{isFetchUserStatusPending ? "Loading..." : "Fetch Users"}</FetchButton>
       <FlexContainer>
         <ContentContainer>
           {users
