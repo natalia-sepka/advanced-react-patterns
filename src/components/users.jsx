@@ -4,6 +4,7 @@ import { fetchUser } from "../api/userApi";
 import { withAsync } from "../helpers/with-async";
 import { ApiStatus } from "../constants/api-status";
 import { useApiStatus } from "../api/hooks/useApiStatus";
+import LazyLoader from "./lazy-loader";
 
 const useFetchUsers = () => {
   const [users, setUsers] = useState([]);
@@ -79,7 +80,13 @@ function Users() {
 
   return (
     <Container>
-      <FetchButton onClick={initFetchUsers}>{isFetchUserStatusPending ? "Loading..." : "Fetch Users"}</FetchButton>
+      <FetchButton onClick={initFetchUsers}>
+        <LazyLoader
+            show={isFetchUserStatusPending} d
+            elay={500}
+            default={"Fetch users"}
+        />
+      </FetchButton>
       <FlexContainer>
         <ContentContainer>
           {users
