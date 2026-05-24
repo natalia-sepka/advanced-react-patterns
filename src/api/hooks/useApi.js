@@ -4,7 +4,7 @@ import { ERROR, PENDING, SUCCESS } from "../../constants/api-status";
 
 export function useApi(fn, config = {}) {
     const { initialData } = config;
-    const [data, setData] = useState();
+    const [data, setData] = useState(null);
     const [error, setError] = useState();
     const { status, setStatus, ...normalisedStatuses } = useApiStatus();
 
@@ -20,6 +20,7 @@ export function useApi(fn, config = {}) {
                 error: null
             };
         } catch (err) {
+            console.log(err)
             setError(err);
             setStatus(ERROR);
 

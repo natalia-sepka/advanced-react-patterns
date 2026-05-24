@@ -13,8 +13,7 @@ const useFetchUsers = () => {
     isPending: isFetchUserStatusPending,
     isError: isFetchUserStatusError,
     isSuccess: isFetchUserStatusSuccess,
-  } = useApi(() =>  fetchUser().then((response) => response.data));
-
+  } = useApi(() => fetchUser());
 
   return {
     users,
@@ -69,7 +68,7 @@ function Users() {
     <Container>
       <FetchButton onClick={initFetchUsers}>
         <LazyLoader
-            show={isFetchUserStatusPending} d
+            show={isFetchUserStatusPending}
             elay={500}
             default={"Fetch users"}
         />

@@ -7,5 +7,5 @@ const URLS = {
 export const fetchUser = () => {
   return api.get(URLS.fetchUsersUrl, {
     baseURL: "https://jsonplaceholder.typicode.com/",
-  });
+  }).then((response) => response.data);
 };
