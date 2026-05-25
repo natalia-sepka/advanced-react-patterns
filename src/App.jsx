@@ -1,10 +1,13 @@
-import SearchMeals from "./components/search-meals";
+import FetchTopQuotes from "./components/top-quotes";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <>
-        <SearchMeals />
-    </>
+    <QueryClientProvider client={queryClient}>
+        <FetchTopQuotes />
+    </QueryClientProvider>
   );
 }
 
