@@ -1,7 +1,7 @@
 const express = require("express");
 const { quotes } = require("./quotes");
 const { quotesOriginal } = require("./quotesOriginal");
-const nanoid = require("nanoid");
+const { nanoid } = require("nanoid");
 const cors = require("cors");
 const app = express();
 const port = 9000;
