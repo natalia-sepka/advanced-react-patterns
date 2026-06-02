@@ -1,15 +1,8 @@
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ToastContainer } from "react-toastify";
-import QueryCancellationWithAbortSignal from "./components/query-cancellation";
-
-const queryClient = new QueryClient();
+import TasksBoard from "./components/tasks-board";
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-        <ToastContainer />
-        <QueryCancellationWithAbortSignal />
-    </QueryClientProvider>
+    <TasksBoard />
   );
 }
 
